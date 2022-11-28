@@ -1,23 +1,16 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class BuildMenuItem : MonoBehaviour
+public class BuildMenuItem : MonoBehaviour, IPointerDownHandler
 {
 
     public event Action<eBuildType> Selected;
 
-    [SerializeField] private Button _selectedButton;
     [SerializeField] private TextMeshProUGUI _description;
 
-    private eBuildType _buildType;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        _selectedButton.onClick.AddListener(ClickItem);
-    }
+    private eBuildType _buildType;    
 
     public void InitItem(eBuildType buildType)
     {
@@ -25,8 +18,13 @@ public class BuildMenuItem : MonoBehaviour
         _description.text = _buildType.ToString();
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        ClickItem();
+    }
+
     private void ClickItem()
     {
         Selected?.Invoke(_buildType);
-    }
+    }    
 }

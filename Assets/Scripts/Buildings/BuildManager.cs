@@ -1,37 +1,29 @@
-using System;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class BuildManager : ITickable, IInitializable, IDisposable
+public class BuildManager
 {
-    [Inject] private SignalBus _signalBus;
+    [Inject] private PlayerInput _playerInput;
+    [Inject] private PrebuildConstruction.Factory _constructionFactory;
+    [Inject] private ConstructionInstaller.Construction[] _construction;
 
-    public void Initialize()
+    private PrebuildConstruction preBuild;
+
+    public void BuildingSelected(eBuildType buildType)
     {
-        _signalBus.Subscribe<MouseDown>(PLayerClick);
-        _signalBus.Subscribe<MouseUp>(Cancel);
-    }
-    public void Dispose()
+        if (buildType == eBuildType.NONE) return;
+
+        if (preBuild != null)
+            preBuild.Dispouse();
+
+        preBuild = _constructionFactory.Create();
+        GameObject prefab = _construction.First(x => x.buildType == buildType).Prefab;
+        preBuild.Init(buildType, prefab);
+    }  
+
+    public void BuildConfirmed()
     {
-        _signalBus.Unsubscribe<MouseDown>(PLayerClick);
-        _signalBus.Unsubscribe<MouseUp>(Cancel);
+        preBuild = null;
     }
-
-    public void Tick()
-    {
-        
-    }
-
-  
-    private void PLayerClick()
-    {
-        Debug.Log("PLayerClick");
-    }
-
-    private void Cancel()
-    {
-
-    }
-
-  
 }

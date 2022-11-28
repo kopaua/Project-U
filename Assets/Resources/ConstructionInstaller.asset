@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f375394175f5934aad1aa1f136e43e0, type: 3}
+  m_Name: ConstructionInstaller
+  m_EditorClassIdentifier: 
+  PrebuildPrefab: {fileID: 6966396423210225938, guid: 18f8f58d0dd19774fb19e8fddbb7c37c, type: 3}
+  Constructions:
+  - buildType: 1
+    Prefab: {fileID: 6887599688746980002, guid: fdc4c9dd47042234d91fb7b4f8d39e7f, type: 3}
+  - buildType: 2
+    Prefab: {fileID: 8598162556060556898, guid: 50165bdeb677db146bd77018e11a74dd, type: 3}
+  - buildType: 3
+    Prefab: {fileID: 8598162556060556898, guid: ff6eb18dfdf651a43b31825efe30a6ab, type: 3}

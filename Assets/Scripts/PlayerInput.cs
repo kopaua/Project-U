@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 using Zenject;
 
 public class PlayerInput : ITickable, IInitializable
 {
+    public event Action OnMouseDown;
+    public event Action OnMouseUp;
+
     [Inject] private SignalBus _signalBus;
 
     private Camera _camera;
@@ -16,23 +20,23 @@ public class PlayerInput : ITickable, IInitializable
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _signalBus.Fire<MouseDown>();
-            Debug.Log("Click");
+            OnMouseDown?.Invoke();
             RaycastFromCamera();
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            _signalBus.Fire<MouseUp>();
+            OnMouseUp?.Invoke();
         }
     }
 
-    private void RaycastFromCamera()
+    public Vector3 RaycastFromCamera()
     {
         RaycastHit hit;
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))
         {
-            //  _inputState.InteractOnCLick(hit);
+            return hit.point;
         }
+        return Vector3.zero;
     }
 }

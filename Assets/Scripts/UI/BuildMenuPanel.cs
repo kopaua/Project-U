@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class BuildMenuPanel : MonoBehaviour
 {
+    [Inject] private BuildManager _buildManager;
+
     [SerializeField] private Button _buildButton;
     [SerializeField] private BuildMenuItem _buildItemPrefab;
     [SerializeField] private GameObject _buildPanel;
@@ -41,7 +44,7 @@ public class BuildMenuPanel : MonoBehaviour
 
     private void BuildItemSelected(eBuildType buildType)
     {
-        Debug.Log(buildType);
         ActivateContent(false);
+        _buildManager.BuildingSelected(buildType);
     }
 }
