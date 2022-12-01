@@ -460,3 +460,4 @@ MonoBehaviour:
   _canvas: {fileID: 381948855}
   _buttonYes: {fileID: 1433101754}
   _buttonNo: {fileID: 608550213}
+  _errorColor: {r: 1, g: 0.0990566, b: 0.0990566, a: 0.5176471}

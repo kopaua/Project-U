@@ -1,17 +1,23 @@
-using UnityEngine;
+using Assets.Scripts.Characters;
 using Zenject;
 
-public class AppContext : MonoInstaller
+namespace Assets.Scripts.Context
 {
-    public override void InstallBindings()
+    public class AppContext : MonoInstaller
     {
-        Container.BindInterfacesAndSelfTo<PlayerInput>().AsSingle().NonLazy();
-        InstallSignals();
-    }
+        public override void InstallBindings()
+        {
+            Container.BindInterfacesAndSelfTo<PlayerInput>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<CharactersHolder>().AsSingle().NonLazy();
+            InstallSignals();
+        }
 
-    private void InstallSignals()
-    {
-        SignalBusInstaller.Install(Container);
-      //  Container.DeclareSignal<MouseDown>();
+        private void InstallSignals()
+        {
+            SignalBusInstaller.Install(Container);
+
+            Container.DeclareSignal<OpenPanelSignal>();
+            //  Container.DeclareSignal<MouseDown>();
+        }
     }
 }

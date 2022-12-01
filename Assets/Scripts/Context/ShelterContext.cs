@@ -1,17 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Buildings;
 using UnityEngine;
 using Zenject;
 
-public class ShelterContext : MonoInstaller
+namespace Assets.Scripts.Context
 {
-    [Inject]
-    private PrebuildConstruction PrebuildConstructionPrefab = null;
-
-    public override void InstallBindings()
+    public class ShelterContext : MonoInstaller
     {
-        Container.BindInterfacesAndSelfTo<BuildManager>().AsSingle();
-        Container.BindFactory<PrebuildConstruction, PrebuildConstruction.Factory>().
-              FromComponentInNewPrefab(PrebuildConstructionPrefab);
+        [Inject] private PrebuildConstruction PrebuildConstructionPrefab = null;
+        [Inject] private AFacility FacilityPrefab = null;
+
+        [SerializeField] private Transform _buildings;
+
+        public override void InstallBindings()
+        {
+            Container.BindInterfacesAndSelfTo<BuildManager>().AsSingle();
+            BindFactory();
+        }
+
+        private void BindFactory()
+        {
+            Container.BindFactory<PrebuildConstruction, PrebuildConstruction.Factory>().
+                 FromComponentInNewPrefab(PrebuildConstructionPrefab).
+                 UnderTransform(_buildings);
+            Container.BindFactory<AFacility, AFacility.Factory>().
+                  FromComponentInNewPrefab(FacilityPrefab).
+                  UnderTransform(_buildings);
+        }
     }
 }

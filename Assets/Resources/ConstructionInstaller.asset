@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ConstructionInstaller
   m_EditorClassIdentifier: 
   PrebuildPrefab: {fileID: 6966396423210225938, guid: 18f8f58d0dd19774fb19e8fddbb7c37c, type: 3}
+  FacilityPrefab: {fileID: -7702870246686051806, guid: 3817328550f8eb241ac14ef2eaf86fd8, type: 3}
   Constructions:
   - buildType: 1
     Prefab: {fileID: 6887599688746980002, guid: fdc4c9dd47042234d91fb7b4f8d39e7f, type: 3}

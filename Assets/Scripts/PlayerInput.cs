@@ -29,14 +29,11 @@ public class PlayerInput : ITickable, IInitializable
         }
     }
 
-    public Vector3 RaycastFromCamera()
+    public RaycastHit RaycastFromCamera()
     {
         RaycastHit hit;
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
-        {
-            return hit.point;
-        }
-        return Vector3.zero;
+        Physics.Raycast(ray, out hit); 
+        return hit;
     }
 }
