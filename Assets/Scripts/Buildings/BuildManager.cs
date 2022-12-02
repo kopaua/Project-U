@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -9,8 +10,10 @@ namespace Assets.Scripts.Buildings
         [Inject] private PlayerInput _playerInput;
         [Inject] private PrebuildConstruction.Factory _preConstructionFactory;        
         [Inject] private ConstructionInstaller.Construction[] _construction;
+        [Inject] private AFacility.Factory _facilityFactory;
 
         private PrebuildConstruction preBuild;
+        private List<AFacility> facilities = new List<AFacility>();
 
         public void BuildingSelected(eBuildType buildType)
         {
@@ -29,8 +32,12 @@ namespace Assets.Scripts.Buildings
             prefab);
         }
        
-        public void BuildConfirmed()
+        public void BuildConfirmed(FacilityData facilityData, GameObject construction)
         {
+            AFacility facility = _facilityFactory.Create();
+            facilityData.FacilityID = facility.GetInstanceID();
+            facility.InitData(facilityData, construction);
+            facilities.Add(facility);
             preBuild.Dispouse();
             preBuild = null;           
         }

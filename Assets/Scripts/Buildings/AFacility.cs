@@ -10,7 +10,7 @@ namespace Assets.Scripts.Buildings
     {
         public eBuildType BuildType;
         public Cell.CellData CellData;
-        public int CharacterID;
+        public int FacilityID;
     }
 
     public abstract class AFacility : MonoBehaviour

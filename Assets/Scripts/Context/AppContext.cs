@@ -15,9 +15,7 @@ namespace Assets.Scripts.Context
         private void InstallSignals()
         {
             SignalBusInstaller.Install(Container);
-
             Container.DeclareSignal<OpenPanelSignal>();
-            //  Container.DeclareSignal<MouseDown>();
         }
     }
 }

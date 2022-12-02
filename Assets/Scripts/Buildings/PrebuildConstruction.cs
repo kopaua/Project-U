@@ -8,8 +8,7 @@ namespace Assets.Scripts.Buildings
     public class PrebuildConstruction : AFacility
     {
         [Inject] private PlayerInput _playerInput;
-        [Inject] private BuildManager _buildManager;
-        [Inject] private AFacility.Factory _facilityFactory;
+        [Inject] private BuildManager _buildManager;       
 
         [SerializeField] private GameObject _canvas;
         [SerializeField] private Button _buttonYes;
@@ -76,11 +75,9 @@ namespace Assets.Scripts.Buildings
             _canvas.SetActive(false);                           
             _baseColor.a = 1;
             _meshRenderer.material.SetColor("_Color", _baseColor);
-            _facilityData.CellData = _cell.GetCellData;          
-            AFacility facility = _facilityFactory.Create();
-            facility.InitData(_facilityData, _construction);
+            _facilityData.CellData = _cell.GetCellData;              
             _cell.SetConstruction(true);
-            _buildManager.BuildConfirmed();
+            _buildManager.BuildConfirmed(_facilityData, _construction);
         }
 
         private void Placed()

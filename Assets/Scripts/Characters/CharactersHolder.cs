@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Characters
@@ -14,6 +15,11 @@ namespace Assets.Scripts.Characters
             {
                 _characters[i].ID = i +1;
             }
+        }
+
+        public CharacterData GetCharacter(int id)
+        {
+            return _characters.First(x => x.ID == id);
         }
     }
 }

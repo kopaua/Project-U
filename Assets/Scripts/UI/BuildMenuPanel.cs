@@ -11,6 +11,7 @@ namespace Assets.Scripts.UI
 
         [SerializeField] private BuildMenuItem _buildItemPrefab;
         [SerializeField] private GameObject _content;
+        [SerializeField] private GameObject _buttonBuildMenu;
 
 
         // Start is called before the first frame update
@@ -18,6 +19,18 @@ namespace Assets.Scripts.UI
         {
             CreateContent();
             _buildItemPrefab.gameObject.SetActive(false);
+        }
+        public override void OpenPanel(object data)
+        {
+            base.OpenPanel(data);
+            gameObject.SetActive(true);
+            _buttonBuildMenu.SetActive(false);
+        }
+
+        public override void ClosePanel()
+        {
+            _buttonBuildMenu.SetActive(true);
+            base.ClosePanel();
         }
 
         private void CreateContent()

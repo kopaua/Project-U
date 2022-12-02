@@ -11,6 +11,8 @@ namespace Assets.Scripts.UI
 
         private List<BasePanel> _panels = new List<BasePanel>();
 
+        private BasePanel _openedPanel;
+
         private void Start()
         {
             _signalBus.Subscribe<OpenPanelSignal>(OnOpenPanel);
@@ -23,8 +25,12 @@ namespace Assets.Scripts.UI
         }
 
         public void OnOpenPanel(OpenPanelSignal signal)
-        {         
-            _panels.First(x => x.PanelType == signal.Panel).OpenPanel(signal.Data);
+        {
+            if (_openedPanel != null)
+                _openedPanel.ClosePanel();
+
+            _openedPanel = _panels.First(x => x.PanelType == signal.Panel);
+            _openedPanel.OpenPanel(signal.Data);
         }
-    }    
+    }
 }
