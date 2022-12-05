@@ -25,17 +25,19 @@ namespace Assets.Scripts.Characters
         {
             _characterData = data;
             gameObject.name = _characterData.Name;
+            gameObject.SetActive(false);
         }
 
         public void SetFacility(FacilityData facilityData)
         {
             _characterData.FacilityId = facilityData.FacilityID;
-            Debug.Log("Move to facility/ "+ facilityData.BuildType);
+            transform.position = facilityData.InteractionPoint;
         }
 
         public void ClearFacility()
         {
             _characterData.FacilityId = 0;
+            gameObject.SetActive(false);
         }
 
         public class Factory : PlaceholderFactory<CharacterEntity>

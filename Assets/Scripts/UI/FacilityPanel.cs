@@ -21,6 +21,7 @@ namespace Assets.Scripts.UI
 
         private FacilityData _facilityData;
         private List<CharacterItemUI> _items = new List<CharacterItemUI>();
+
         private void Start()
         {
             _charactersButton.onClick.AddListener(OpenCharactersList);
@@ -42,12 +43,13 @@ namespace Assets.Scripts.UI
             _characterList.SetActive(false);
             _facilityData = (FacilityData)data;
             _name.text = _facilityData.BuildType.ToString();
-            FindWorker();          
+            FindWorker();
+            UpdateCharacterList();
         }
 
         private void FindWorker()
         {
-            CharacterEntity character = _shelterCharacters.FindWorker(_facilityData);
+            CharacterEntity character = _shelterCharacters.GetWorkerEntity(_facilityData);
             if (character != null)
             {
                 _character.text = character.GetCharacterData.Name;
@@ -71,6 +73,7 @@ namespace Assets.Scripts.UI
                 FacilityData = _facilityData
             });
             FindWorker();
+            UpdateCharacterList();
         }
 
         private void CreateCharacterList()
@@ -82,6 +85,14 @@ namespace Assets.Scripts.UI
                 clone.OnClick += SetCharacterToFacility;
                 clone.Init(_shelterCharacters.GetCharacterDataByIndex(i));
                 _items.Add(clone);
+            }
+        }
+
+        private void UpdateCharacterList()
+        {
+            for (int i = 0; i < _items.Count; i++)
+            {
+                _items[i].UpdateItem(_shelterCharacters.GetCharacterDataByIndex(i));
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Buildings;
-using System.Collections.Generic;
 using System.Linq;
 using Zenject;
 
@@ -7,22 +6,17 @@ namespace Assets.Scripts.Characters
 {
     public class ShelterCharacters : IInitializable
     {
-        [Inject] private CharactersHolder _charactersHolder;
         [Inject] private CharacterEntity.Factory _characterFactory;
-        [Inject] private SignalBus _signalBus;
+        [Inject] private CharacterData[] CharactersConfigInfo;
+        [Inject] private SignalBus _signalBus;  
 
-        public int GetCharacterCount => _characters.Count;
+        public int GetCharacterCount => _characters.Length;     
 
-        private List<CharacterEntity> _characters = new List<CharacterEntity>();
+        private CharacterEntity[] _characters;
 
         public void Initialize()
         {
-            for (int i = 1; i <= 2; i++)
-            {
-                CharacterEntity character = _characterFactory.Create();
-                character.Init(_charactersHolder.GetCharacter(i));
-                _characters.Add(character);
-            }
+            CreateCharacters();
             _signalBus.Subscribe<SetCharacterToFacility>(OnSetCharacterToFacility);
         }
 
@@ -41,18 +35,41 @@ namespace Assets.Scripts.Characters
             return _characters.First(x => x.GetCharacterData.ID == id);
         }
 
-        public CharacterEntity FindWorker(FacilityData facilityData)
+        public CharacterEntity GetWorkerEntity(FacilityData facilityData)
         {
-            CharacterEntity characterEntity = _characters.Find(x => x.GetCharacterData.FacilityId == facilityData.FacilityID);
+            CharacterEntity characterEntity = null;
+            foreach (var item in _characters)
+            {
+                if (item.GetCharacterData.FacilityId == facilityData.FacilityID)
+                {
+                    characterEntity = item;
+                    break;
+                }
+            }
             return characterEntity;
         }
 
         private void OnSetCharacterToFacility(SetCharacterToFacility signal)
         {
-            CharacterEntity character = FindWorker(signal.FacilityData);
+            CharacterEntity character = GetWorkerEntity(signal.FacilityData);
             if (character != null)
                 character.ClearFacility();
-            GetCharacterEntityById(signal.CharacterData.ID).SetFacility(signal.FacilityData);
+            CharacterEntity characterEntity = GetCharacterEntityById(signal.CharacterData.ID);
+            characterEntity.gameObject.SetActive(true);
+            characterEntity.SetFacility(signal.FacilityData);
+        }
+
+        private void CreateCharacters()
+        {
+            _characters = new CharacterEntity[CharactersConfigInfo.Length];
+            for (int i = 0; i < _characters.Length; i++)
+            {
+                CharactersConfigInfo[i].ID = i + 1;
+                CharactersConfigInfo[i].FacilityId = 0;
+                CharacterEntity characterClone = _characterFactory.Create();
+                characterClone.Init(CharactersConfigInfo[i]);
+                _characters[i] = characterClone;
+            }
         }
     }
 }

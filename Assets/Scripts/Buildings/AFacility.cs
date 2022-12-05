@@ -11,6 +11,7 @@ namespace Assets.Scripts.Buildings
         public eBuildType BuildType;
         public Cell.CellData CellData;
         public int FacilityID;
+        public Vector3 InteractionPoint;
     }
 
     public abstract class AFacility : MonoBehaviour

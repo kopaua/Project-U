@@ -11,7 +11,7 @@ namespace Assets.Scripts.Buildings
             base.InitData(facilityData, construction);
             _construction = construction;
             AddConstruction();
-            AddFunctional();
+           _facilityData.InteractionPoint = transform.GetComponentInChildren<FacilityInteraction>().InteractionPoint;            
         }
 
         private void OnMouseDown()
@@ -22,11 +22,6 @@ namespace Assets.Scripts.Buildings
                     Panel = ePanel.FacilityPanel,
                     Data = _facilityData
                 });
-        }
-
-        private void AddFunctional()
-        {
-            gameObject.AddComponent<FacilityStaff>();
         }
 
         private void AddConstruction()

@@ -8,7 +8,6 @@ namespace Assets.Scripts.Context
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<PlayerInput>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<CharactersHolder>().AsSingle().NonLazy();
             InstallSignals();
         }
 

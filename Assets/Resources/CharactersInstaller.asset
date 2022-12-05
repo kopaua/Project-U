@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: CharactersInstaller
   m_EditorClassIdentifier: 
   CharacterEntity: {fileID: 369882156889161975, guid: ec716666806508c4ba11621a8651b86e, type: 3}
+  CharactersConfigInfo:
+  - ID: 0
+    FacilityId: 0
+    Name: Bob
+  - ID: 0
+    FacilityId: 0
+    Name: Jeck

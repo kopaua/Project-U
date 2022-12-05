@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: {fileID: 78994582079364954}
+  _imageBg: {fileID: 78994581639374907}
 --- !u!114 &5405656645272160871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +110,7 @@ GameObject:
   - component: {fileID: 78994581639374904}
   - component: {fileID: 78994581639374907}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

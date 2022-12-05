@@ -8,10 +8,12 @@ namespace Assets.Scripts.Characters
     {
 
         [SerializeField] public CharacterEntity CharacterEntity;
+        [SerializeField] public CharacterData[] CharactersConfigInfo;
 
         public override void InstallBindings()
         {
             Container.BindInstance(CharacterEntity);
+            Container.BindInstance(CharactersConfigInfo);
         }
     }
 }
